@@ -186,6 +186,7 @@ with col2:
     st.caption("Impacto de la calificación del público en el rendimiento en taquilla.")
 
 st.divider()
-st.sidebar.markdown("Use estos controles para explorar los datos históricos y descubrir patrones de éxito.")
+st.caption("Permite identificar qué géneros son más rentables para el rango de presupuesto seleccionado.")
+
 
 
