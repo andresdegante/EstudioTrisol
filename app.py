@@ -14,33 +14,13 @@ st.set_page_config(
 # --- Estilos CSS para un look más profesional ---
 st.markdown("""
 <style>
-    /* Ajusta el padding superior del contenido principal */
-    .st-emotion-cache-16txtl3 {
-        padding-top: 2rem;
-    }
-    /* Estilo para los contenedores de KPIs */
-    .st-emotion-cache-1v0mbdj {
-        border: 1px solid #e1e4e8;
-        border-radius: 0.5rem;
-        padding: 1rem;
-        margin-bottom: 1rem;
-    }
-    /* Estilos para los títulos */
-    h1 {
-        font-size: 2.5em;
-        font-weight: bold;
-    }
-    h2 {
-        font-size: 2em;
-        font-weight: bold;
-    }
-    h3 {
-        font-size: 1.5em;
-        font-weight: bold;
-    }
+    .st-emotion-cache-16txtl3 {padding-top: 2rem;}
+    .st-emotion-cache-1v0mbdj {border: 1px solid #e1e4e8; border-radius: 0.5rem; padding: 1rem; margin-bottom: 1rem;}
+    h1 {font-size: 2.5em; font-weight: bold;}
+    h2 {font-size: 2em; font-weight: bold;}
+    h3 {font-size: 1.5em; font-weight: bold;}
 </style>
 """, unsafe_allow_html=True)
-
 
 # Suprimir advertencias
 warnings.filterwarnings('ignore', category=UserWarning, module='pandas')
@@ -48,7 +28,6 @@ warnings.filterwarnings('ignore', category=UserWarning, module='pandas')
 # --- Función de Carga Simplificada (Cacheada) ---
 @st.cache_data
 def load_cleaned_data(csv_path='datos_limpios_peliculas.csv'):
-    """Carga el dataset ya transformado y limpio."""
     try:
         df = pd.read_csv(csv_path)
         valid_genres = sorted(list(df['main_genre'].unique()))
@@ -65,14 +44,14 @@ df_clean, valid_genres = load_cleaned_data()
 col1, col2 = st.columns([1, 4])
 with col1:
     try:
-        st.image('UdeO_logo2.jpg', width=120)
+        st.image('UdeO_logo.png', width=120)
     except Exception:
-        st.warning("Logo 'UdeO_logo2.jpg' no encontrado.")
+        st.warning("Logo 'UdeO_logo.png' no encontrado.")
 with col2:
     st.title("Dashboard Estratégico de Análisis Cinematográfico")
     st.markdown("""
     **Maestría en Inteligencia Artificial Aplicada** | Inteligencia de Negocios  
-    **Alumno:** Psic. Andres Cruz Degante | **Profesor:** Dr. Diego Alonso Gastelum Chavira
+    **Alumno:** Andres Cruz Degante | **Profesor:** Dr. Diego Alonso Gastelum Chavira
     """)
 
 # --- Comprobación de Seguridad ---
@@ -154,7 +133,6 @@ with col1:
 
 with col2:
     st.markdown("##### Presupuesto vs. Retorno de Inversión (ROI)")
-    # Filtrar ROIs extremos para una mejor visualización en el gráfico
     df_filtered_roi = df_filtered[df_filtered['roi'].between(-1, 20)] 
     chart_roi = alt.Chart(df_filtered_roi.sample(n=min(1000, len(df_filtered_roi)))).mark_circle(opacity=0.6).encode(
         x=alt.X('budget:Q', title='Presupuesto', axis=alt.Axis(format='$,.0s')),
@@ -179,14 +157,8 @@ with col1:
 
 with col2:
     st.markdown("##### Recaudación vs. Calificación de la Audiencia")
-    # Agrupar calificaciones en "buckets" o rangos para el gráfico
     df_filtered['rating_bucket'] = pd.cut(df_filtered['vote_average'], bins=range(0, 11), right=False, labels=[f"{i}-{i+1}" for i in range(10)])
     revenue_by_rating = df_filtered.groupby('rating_bucket')['revenue'].mean()
     st.bar_chart(revenue_by_rating)
     st.caption("Impacto de la calificación del público en el rendimiento en taquilla.")
-
-st.divider()
-st.caption("Este dashboard utiliza un subconjunto procesado del TMDB Movies Dataset 2023 disponible en Kaggle. Es fundamental destacar que, aunque el dataset original contiene ~930,000 registros, para un análisis financiero estratégico es crucial trabajar con datos de alta calidad. Después de un riguroso proceso de ETL (Extracción, Transformación y Carga) —que incluyó la limpieza de datos, la eliminación de registros sin información financiera (presupuesto y recaudación con valores mayores a cero), sin fecha de estreno, y la estandarización de géneros— el universo de películas viables para este análisis se consolidó en 8,467 registros.")
-
-
 
