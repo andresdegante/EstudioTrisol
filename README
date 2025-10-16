@@ -1,0 +1,72 @@
+Dashboard Estratégico de Análisis Cinematográfico
+
+Este proyecto es una aplicación de Inteligencia de Negocios (BI) desarrollada en Streamlit que proporciona un dashboard interactivo para el análisis estratégico de datos de la industria cinematográfica. La herramienta está diseñada para ejecutivos de estudios de cine, como "Trisol Estudios", para facilitar la toma de decisiones basada en datos.
+
+[INSERTA AQUÍ UNA CAPTURA DE PANTALLA DE TU DASHBOARD]
+
+🎯 Objetivo del Proyecto
+
+El objetivo principal es transformar un gran volumen de datos crudos del dataset de TMDB en un dashboard de "Self-Service BI". Este permite a los usuarios sin conocimientos técnicos explorar patrones históricos de éxito, identificar tendencias de mercado y analizar la rentabilidad de diferentes tipos de proyectos cinematográficos a través de filtros interactivos.
+
+✨ Características Principales
+
+Filtros Interactivos: Permite segmentar el análisis por rango de años de estreno, rango de presupuesto y géneros cinematográficos.
+
+KPIs Dinámicos: Muestra métricas clave (KPIs) que se actualizan en tiempo real según la selección del usuario, como Recaudación Total, Presupuesto Promedio y ROI Promedio.
+
+Visualizaciones Estratégicas:
+
+Gráfico de dispersión de Presupuesto vs. Recaudación para analizar la correlación entre inversión y ganancia.
+
+Gráfico de dispersión de Presupuesto vs. ROI para identificar los "puntos dulces" de rentabilidad.
+
+Gráficos de barras para analizar la Rentabilidad por Género y el impacto de la Calificación de la Audiencia.
+
+🛠️ Tecnologías Utilizadas
+
+Lenguaje: Python 3.x
+
+Framework de la App: Streamlit
+
+Análisis de Datos: Pandas, NumPy
+
+Visualización: Altair
+
+📂 Estructura del Repositorio
+
+Para desplegar esta aplicación, el repositorio debe contener los siguientes 4 archivos:
+
+/
+├── app.py                   # El script principal de la aplicación Streamlit
+├── datos_limpios_peliculas.csv # El dataset procesado y limpio
+├── UdeO_logo.png            # El logo de la universidad
+└── requirements.txt         # Las dependencias de Python
+
+
+🚀 Cómo Ejecutarlo Localmente
+
+Clonar el repositorio:
+
+git clone [URL-de-tu-repositorio]
+cd [nombre-de-tu-repositorio]
+
+
+Instalar las dependencias:
+
+pip install -r requirements.txt
+
+
+Ejecutar la aplicación:
+
+streamlit run app.py
+
+
+La aplicación se abrirá automáticamente en tu navegador web.
+
+☁️ Despliegue en Streamlit Cloud
+
+Esta aplicación está lista para ser desplegada en Streamlit Community Cloud. Simplemente conecta tu repositorio de GitHub y selecciona el archivo app.py para el despliegue.
+
+📊 Fuente de Datos
+
+Este dashboard utiliza un subconjunto procesado del TMDB Movies Dataset 2023 disponible en Kaggle. El script generador_datos.py (SI incluido en este repositorio) se utilizó para realizar el proceso de ETL (Extracción, Transformación y Carga) y generar el archivo datos_limpios_peliculas.csv.
