@@ -72,7 +72,7 @@ with col2:
     st.title("Dashboard Estratégico de Análisis Cinematográfico")
     st.markdown("""
     **Maestría en Inteligencia Artificial Aplicada** | Inteligencia de Negocios  
-    **Alumno:** (Tu Nombre Aquí) | **Profesor:** (Nombre del Profesor Aquí)
+    **Alumno:** Psic. Andres Cruz Degante | **Profesor:** Dr. Diego Alonso Gastelum Chavira
     """)
 
 # --- Comprobación de Seguridad ---
