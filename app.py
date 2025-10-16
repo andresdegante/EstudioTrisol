@@ -185,3 +185,7 @@ with col2:
     st.bar_chart(revenue_by_rating)
     st.caption("Impacto de la calificación del público en el rendimiento en taquilla.")
 
+st.divider()
+st.sidebar.markdown("Use estos controles para explorar los datos históricos y descubrir patrones de éxito.")
+
+
