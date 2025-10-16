@@ -54,9 +54,9 @@ df_clean, valid_genres = load_cleaned_data()
 col1, col2 = st.columns([1, 4])
 with col1:
     try:
-        st.image('UdeO_logo.png', width=120)
+        st.image('UdeO_logo2.jpg', width=120)
     except Exception:
-        st.warning("Logo 'UdeO_logo.png' no encontrado.")
+        st.warning("Logo 'UdeO_logo2.jpg' no encontrado.")
 with col2:
     st.title("Dashboard Estratégico de Análisis Cinematográfico")
     st.markdown("""
