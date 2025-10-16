@@ -105,13 +105,14 @@ st.markdown(f"Analizando **{len(df_filtered):,}** películas que coinciden con l
 
 st.divider()
 
-# --- Fila 1: KPIs de Alto Nivel ---
+# --- Fila 1: KPIs de Alto Nivel (CORREGIDO) ---
 st.subheader("Indicadores Clave de Rendimiento (KPIs)")
 with st.container(border=True):
     col1, col2, col3, col4 = st.columns(4)
     col1.metric("Películas en Selección", f"{len(df_filtered):,}")
-    col2.metric("Recaudación Total", f"${df_filtered['revenue'].sum() / 1_000_000_000:.2f} B")
-    col3.metric("Presupuesto Promedio", f"${df_filtered['budget'].mean() / 1_000_000:.1f} M")
+    # CORRECCIÓN: Mostrar el número completo
+    col2.metric("Recaudación Total", f"${df_filtered['revenue'].sum():,.0f}")
+    col3.metric("Presupuesto Promedio", f"${df_filtered['budget'].mean():,.0f}")
     col4.metric("ROI Promedio", f"{df_filtered['roi'].mean():.1%}")
 
 st.divider()
@@ -122,6 +123,7 @@ col1, col2 = st.columns(2)
 
 with col1:
     st.markdown("##### Presupuesto vs. Recaudación")
+    # Este gráfico ya usaba el formato correcto ('$,.0s') para los ejes
     chart_revenue = alt.Chart(df_filtered.sample(n=min(1000, len(df_filtered)))).mark_circle(opacity=0.6).encode(
         x=alt.X('budget:Q', title='Presupuesto', axis=alt.Axis(format='$,.0s')),
         y=alt.Y('revenue:Q', title='Recaudación', axis=alt.Axis(format='$,.0s')),
@@ -133,6 +135,7 @@ with col1:
 
 with col2:
     st.markdown("##### Presupuesto vs. Retorno de Inversión (ROI)")
+    # Este gráfico ya usaba el formato correcto ('$,.0s') para los ejes
     df_filtered_roi = df_filtered[df_filtered['roi'].between(-1, 20)] 
     chart_roi = alt.Chart(df_filtered_roi.sample(n=min(1000, len(df_filtered_roi)))).mark_circle(opacity=0.6).encode(
         x=alt.X('budget:Q', title='Presupuesto', axis=alt.Axis(format='$,.0s')),
@@ -157,8 +160,11 @@ with col1:
 
 with col2:
     st.markdown("##### Recaudación vs. Calificación de la Audiencia")
-    df_filtered['rating_bucket'] = pd.cut(df_filtered['vote_average'], bins=range(0, 11), right=False, labels=[f"{i}-{i+1}" for i in range(10)])
-    revenue_by_rating = df_filtered.groupby('rating_bucket')['revenue'].mean()
+    # Creamos una copia para evitar el SettingWithCopyWarning
+    df_chart = df_filtered.copy()
+    df_chart['rating_bucket'] = pd.cut(df_chart['vote_average'], bins=range(0, 11), right=False, labels=[f"{i}-{i+1}" for i in range(10)])
+    revenue_by_rating = df_chart.groupby('rating_bucket')['revenue'].mean()
     st.bar_chart(revenue_by_rating)
     st.caption("Impacto de la calificación del público en el rendimiento en taquilla.")
-
+st.divider()
+st.caption("Este dashboard utiliza un subconjunto procesado del TMDB Movies Dataset 2023 disponible en Kaggle. Es fundamental destacar que, aunque el dataset original contiene ~930,000 registros, para un análisis financiero estratégico es crucial trabajar con datos de alta calidad. Después de un riguroso proceso de ETL (Extracción, Transformación y Carga) —que incluyó la limpieza de datos, la eliminación de registros sin información financiera (presupuesto y recaudación con valores mayores a cero), sin fecha de estreno, y la estandarización de géneros— el universo de películas viables para este análisis se consolidó en 8,467 registros.")
