@@ -186,7 +186,9 @@ with col2:
     st.caption("Impacto de la calificación del público en el rendimiento en taquilla.")
 
 st.divider()
-st.caption("Permite identificar qué géneros son más rentables para el rango de presupuesto seleccionado.")
+st.caption("Este dashboard utiliza un subconjunto procesado del TMDB Movies Dataset 2023 disponible en Kaggle.
+
+Es fundamental destacar que, aunque el dataset original contiene ~930,000 registros, para un análisis financiero estratégico es crucial trabajar con datos de alta calidad. Después de un riguroso proceso de ETL (Extracción, Transformación y Carga) —que incluyó la limpieza de datos, la eliminación de registros sin información financiera (presupuesto y recaudación con valores mayores a cero), sin fecha de estreno, y la estandarización de géneros— el universo de películas viables para este análisis se consolidó en 8,467 registros.")
 
 
 
